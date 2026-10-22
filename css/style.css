@@ -125,6 +125,7 @@ th {
     border: 1px solid #ddd;
     border-radius: 4px;
     overflow-x: auto;
+    text-aling: left;
 }
 footer {
     text-align: center;
