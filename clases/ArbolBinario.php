@@ -41,11 +41,20 @@ class ArbolBinario {
         return $raiz;
     }
 
-    public function render(?Nodo $nodo, int $nivel = 0): string {
-        if ($nodo === null) return '';
-        $html = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $nivel) . htmlspecialchars($nodo->valor) . '<br>';
-        $html .= $this->render($nodo->izq, $nivel + 1);
-        $html .= $this->render($nodo->der, $nivel + 1);
-        return $html;
+    public function render(?Nodo $nodo): string {
+    if ($nodo === null) return '';
+    
+    $html = '<ul style="list-style-type: none; padding-left: 20px; margin: 0;">';
+    $html .= '<li><strong>' . htmlspecialchars($nodo->valor) . '</strong>';
+    
+    if ($nodo->izq !== null || $nodo->der !== null) {
+        $html .= $this->render($nodo->izq);
+        $html .= $this->render($nodo->der);
+    }
+    
+    $html .= '</li>';
+    $html .= '</ul>';
+    
+    return $html;
     }
 }
