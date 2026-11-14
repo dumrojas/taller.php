@@ -103,7 +103,7 @@ th, td {
     text-align: center;
 }
 th {
-    background-color: #3498db;
+    background-color: #de0707;
     color: white;
 }
 .resultado {
@@ -111,21 +111,177 @@ th {
     padding: 15px;
     border-radius: 5px;
     margin-top: 20px;
-    border-left: 5px solid #3498db;
+    border-left: 5px solid #bf0202;
 }
 .error {
     color: #e74c3c;
     font-weight: bold;
 }
 .arbol {
-    font-family: monospace;
-    white-space: pre;
-    background: #f9f9f9;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    --arbol-linea: rgba(167, 243, 208, 0.75);
+    position: relative;
     overflow-x: auto;
-    text-aling: left;
+    padding: 24px 18px 30px;
+    border: 1px solid #14532d;
+    border-radius: 12px;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(22, 101, 52, 0.6), transparent 68%),
+        linear-gradient(160deg, #052e16, #064e3b 55%, #022c22);
+    color: #ecfdf5;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    white-space: normal;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.22);
+}
+.arbol > strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #fef3c7;
+    font-size: 1.05rem;
+}
+.arbol > br {
+    display: none;
+}
+.arbol ul {
+    margin: 0;
+    padding: 0 !important;
+    list-style: none;
+}
+.arbol > ul {
+    display: flex;
+    justify-content: center;
+    width: max-content;
+    min-width: 100%;
+    padding-top: 30px !important;
+}
+.arbol li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 12px 0;
+}
+.arbol > ul > li {
+    padding-top: 0;
+}
+.arbol li > strong {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #86efac, #16a34a 58%, #14532d);
+    color: #fff;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 1rem;
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.55), inset 0 2px 5px rgba(255, 255, 255, 0.35);
+    animation: arbol-brillo 2.8s ease-in-out infinite alternate;
+}
+.arbol li > strong::after {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    width: 8px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    content: "";
+    transform: rotate(-35deg);
+}
+.arbol li > ul {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.arbol li > ul > li:only-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+.arbol li > ul::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 21px;
+    border-left: 3px solid var(--arbol-linea);
+    content: "";
+    filter: drop-shadow(0 0 3px rgba(167, 243, 208, 0.8));
+}
+.arbol li > ul > li::before {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    height: 20px;
+    border-left: 3px solid var(--arbol-linea);
+    content: "";
+    filter: drop-shadow(0 0 3px rgba(167, 243, 208, 0.8));
+    transform: translateX(-50%);
+}
+.arbol li > ul > li::after {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    left: 0;
+    border-top: 3px solid var(--arbol-linea);
+    content: "";
+    filter: drop-shadow(0 0 3px rgba(167, 243, 208, 0.8));
+}
+.arbol li > ul > li:first-child:not(:last-child)::after {
+    left: 50%;
+}
+.arbol li > ul > li:last-child:not(:first-child)::after {
+    right: 50%;
+}
+.arbol li > ul > li:only-child::after {
+    display: none;
+}
+.arbol ul ul > li > strong {
+    background: radial-gradient(circle at 32% 28%, #fca5a5, #dc2626 58%, #7f1d1d);
+    box-shadow: 0 0 12px rgba(248, 113, 113, 0.55), inset 0 2px 5px rgba(255, 255, 255, 0.35);
+}
+.arbol ul ul ul > li > strong {
+    background: radial-gradient(circle at 32% 28%, #fde68a, #eab308 58%, #854d0e);
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.55), inset 0 2px 5px rgba(255, 255, 255, 0.35);
+}
+.arbol > ul > li > strong::before {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    color: #facc15;
+    content: "★";
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    text-shadow: 0 0 12px rgba(250, 204, 21, 0.85);
+    transform: translateX(-50%);
+    animation: arbol-estrella 1.8s ease-in-out infinite alternate;
+}
+@keyframes arbol-brillo {
+    from {
+        filter: brightness(0.9);
+        transform: translateY(0);
+    }
+    to {
+        filter: brightness(1.2);
+        transform: translateY(-3px);
+    }
+}
+@keyframes arbol-estrella {
+    from {
+        opacity: 0.75;
+        text-shadow: 0 0 6px rgba(250, 204, 21, 0.65);
+    }
+    to {
+        opacity: 1;
+        text-shadow: 0 0 16px rgba(250, 204, 21, 1);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .arbol li > strong,
+    .arbol > ul > li > strong::before {
+        animation: none;
+    }
 }
 footer {
     text-align: center;
@@ -133,3 +289,4 @@ footer {
     color: #777;
     font-size: 0.9rem;
 }
+
