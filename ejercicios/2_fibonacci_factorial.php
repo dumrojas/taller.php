@@ -12,8 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $serie = $fib->serie($numero);
         $resultado = implode(', ', $serie);
     } elseif ($operacion === 'factorial') {
-        $fact = new Factorial();
-        $resultado = (string) $fact->calcular($numero);
+    $fact = new Factorial();
+    $res = $fact->calcular($numero);
+    $proceso = $fact->obtenerProceso($numero);
+    $resultado = $proceso . ' = ' . $res;
     }
 }
 ?>
