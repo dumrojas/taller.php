@@ -42,19 +42,20 @@ class ArbolBinario {
     }
 
     public function render(?Nodo $nodo): string {
-    if ($nodo === null) return '';
-    
-    $html = '<ul style="list-style-type: none; padding-left: 20px; margin: 0;">';
-    $html .= '<li><strong>' . htmlspecialchars($nodo->valor) . '</strong>';
-    
-    if ($nodo->izq !== null || $nodo->der !== null) {
-        $html .= $this->render($nodo->izq);
-        $html .= $this->render($nodo->der);
+        if ($nodo === null) return '';
+        return '<ul class="arbol-estructura">' . $this->renderNodo($nodo) . '</ul>';
     }
-    
-    $html .= '</li>';
-    $html .= '</ul>';
-    
-    return $html;
+
+    private function renderNodo(Nodo $nodo): string {
+        $html = '<li><strong>' . htmlspecialchars($nodo->valor) . '</strong>';
+
+        if ($nodo->izq !== null || $nodo->der !== null) {
+            $html .= '<ul>';
+            if ($nodo->izq !== null) $html .= $this->renderNodo($nodo->izq);
+            if ($nodo->der !== null) $html .= $this->renderNodo($nodo->der);
+            $html .= '</ul>';
+        }
+
+        return $html . '</li>';
     }
 }
